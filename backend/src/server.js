@@ -12,10 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [
-      "https://social-media-app-two-self.vercel.app",
-      process.env.CLIENT_URL,
-    ],
+    origin: ["https://social-media-app-two-self.vercel.app"],
     credentials: true,
   })
 );

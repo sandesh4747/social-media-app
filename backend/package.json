@@ -24,6 +24,7 @@
     "mongoose": "^8.13.2",
     "multer": "^2.0.1",
     "multer-storage-cloudinary": "^4.0.0",
+    "social-media": "file:..",
     "stream-chat": "^8.60.0"
   },
   "devDependencies": {

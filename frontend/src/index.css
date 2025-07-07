@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  /* Primary colors: Orange variants */
+  --color-primary: #f97316; /* Orange 500 - main */
+  --color-primary-light: #fdba74; /* Orange 300 - lighter */
+  --color-primary-dark: #c2410c; /* Orange 700 - darker */
+
+  /* Neutral colors */
+  --color-background: #fff7ed; /* soft warm background */
+  --color-text-primary: #1e293b; /* dark slate */
+  --color-text-secondary: #64748b; /* grayish blue */
+
+  /* Accent colors */
+  --color-error: #dc2626; /* Red 600 for errors */
+  --color-success: #22c55e; /* Green 500 for success */
+}
+
+* {
+  font-family: Outfit, sans-serif;
+}
+
+.font-playfair {
+  font-family: Playfair, serif !important;
+}
+
+html {
+  overflow-y: scroll;
+  background-color: #f0f2f5;
+}
+
+@layer base {
+  button {
+    @apply cursor-pointer;
+  }
+}

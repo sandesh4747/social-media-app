@@ -6,7 +6,7 @@ export default function Friends({ user }) {
   const hasFriends = user?.friends?.length > 0;
   console.log("user user", user);
   return (
-    <div className="bg-white rounded-lg shadow p-4  pb-8">
+    <div className="bg-white rounded-lg shadow p-4 pb-15   ">
       {/* Friends Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-bold">Friends</h2>
@@ -30,9 +30,7 @@ export default function Friends({ user }) {
                   className="w-20 h-20 object-cover rounded-full mx-auto mb-2"
                 />
                 <p className="font-medium">{friend?.username}</p>
-                <button className="mt-2 bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-md text-sm w-full">
-                  Message
-                </button>
+                <button className="mt-2 bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-md text-sm w-full"></button>
               </div>
             ))}
           </div>

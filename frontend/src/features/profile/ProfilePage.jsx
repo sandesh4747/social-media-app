@@ -10,6 +10,7 @@ import SuggestedUsers from "./SuggestedUsers";
 import ShowFollowerCard from "./ShowFollowerCard";
 
 export default function ProfilePage() {
+  const [loadingUserId, setLoadingUserId] = useState(null);
   const [showAllFollowers, setShowAllFollowers] = useState(false);
   const [showFollowersCard, setShowFollowersCard] = useState(false);
 
@@ -18,12 +19,14 @@ export default function ProfilePage() {
   const [toogleFollow, { isLoading }] = useToggleFollowMutation();
 
   const handleFollow = async (userId) => {
+    setLoadingUserId(userId);
     try {
       const response = await toogleFollow(userId).unwrap();
       toast.success(response?.message);
     } catch (error) {
       toast.error(error.data?.message || "Failed to follow");
     } finally {
+      setLoadingUserId(null);
     }
   };
   const isFollowing = (targetUserId) => {
@@ -74,7 +77,7 @@ export default function ProfilePage() {
                         : "bg-amber-100 text-amber-800 hover:bg-amber-200"
                     }`}
                   >
-                    {isLoading === user._id ? (
+                    {loadingUserId === user._id ? (
                       <Loader className="animate-spin h-4 w-4" />
                     ) : isFollowing(user._id) ? (
                       "Following"

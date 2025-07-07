@@ -1,6 +1,6 @@
 const LoadingSpinner = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+    <div className="flex items-center justify-center min-h-screen ">
       <div className="relative w-24 h-24">
         {/* Outer faint ring */}
         <div className="absolute inset-0 rounded-full border-4 border-[#d62839] opacity-20" />

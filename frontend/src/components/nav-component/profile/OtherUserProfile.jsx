@@ -13,6 +13,7 @@ import EditBio from "./EditBio";
 import { useParams } from "react-router-dom";
 import { useGetSingleUserQuery } from "../../../features/user/userApi";
 import UserPost from "./UserPost";
+import LoadingSpinner from "../../LoadingSpinner";
 
 export default function OtherUserProfile() {
   const { id } = useParams();
@@ -39,7 +40,7 @@ export default function OtherUserProfile() {
     },
   ];
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSpinner />;
   return (
     <div className="max-w-7xl  mx-auto bg-white">
       {/* Cover Photo */}

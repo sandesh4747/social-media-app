@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import profile from "../../assets/profile.png";
-import { Image, X } from "lucide-react";
+import { Image, Loader, X } from "lucide-react";
 import { useCreatePostMutation, useGetAllPostsQuery } from "./postApi";
 import toast from "react-hot-toast";
 import PostCard from "./PostCard";
 
 export default function PostPage() {
-  const { data } = useGetAllPostsQuery();
+  const { data, isLoading: isPostLoading } = useGetAllPostsQuery();
   const posts = data?.posts;
 
   const [createPost, { isLoading }] = useCreatePostMutation();
@@ -139,7 +139,14 @@ export default function PostPage() {
                 disabled={isLoading}
                 className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-1 rounded-md text-sm"
               >
-                {isLoading ? "Posting..." : "Post"}
+                {isLoading ? (
+                  <>
+                    <Loader className="animate-spin h-4 w-4" />
+                    <span className="ml-2">Posting...</span>
+                  </>
+                ) : (
+                  "Post"
+                )}
               </button>
             </div>
           </div>
@@ -147,7 +154,9 @@ export default function PostPage() {
       )}
 
       {posts?.length > 0 ? (
-        posts.map((post) => <PostCard key={post._id} post={post} />)
+        posts.map((post) => (
+          <PostCard key={post._id} post={post} isLoading={isPostLoading} />
+        ))
       ) : (
         <div className="w-full flex flex-col items-center justify-center py-16 text-gray-500">
           <svg

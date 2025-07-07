@@ -8,7 +8,7 @@ export default function RootLayout() {
   const shouldHideNavbar = hideNavbar.includes(window.location.pathname);
   return (
     <div className=" bg-[#f0f2f5] ">
-      <div className="sm:pb-20">{!shouldHideNavbar && <Navbar />}</div>
+      <div className="md:pb-20">{!shouldHideNavbar && <Navbar />}</div>
 
       <main className="w-full sm:p-5 ">
         <Outlet />

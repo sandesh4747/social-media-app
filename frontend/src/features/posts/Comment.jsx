@@ -8,10 +8,12 @@ import {
 } from "./postApi";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import { Loader } from "lucide-react";
 
 export default function Comment({ postId }) {
+  const [deletingCommentId, setDeletingCommentId] = useState(null);
   const { user } = useSelector((state) => state.userSlice);
-  const [editComment] = useEditCommentMutation();
+  const [editComment, { isLoading: isEditing }] = useEditCommentMutation();
   const [deleteComment] = useDeleteCommentMutation();
   const {
     data: posts,
@@ -28,6 +30,7 @@ export default function Comment({ postId }) {
 
   const handleAddComment = async (e) => {
     e.preventDefault();
+
     try {
       await addComment({
         id: post._id,
@@ -41,11 +44,14 @@ export default function Comment({ postId }) {
   };
 
   const handleDeleteComment = async (commentId) => {
+    setDeletingCommentId(commentId);
     try {
       await deleteComment({ id: post._id, commentId }).unwrap();
       refetch();
     } catch (error) {
       toast.error(error.data?.message || "Failed to delete comment");
+    } finally {
+      setDeletingCommentId(null);
     }
   };
 
@@ -138,7 +144,14 @@ export default function Comment({ postId }) {
                               type="submit"
                               className="px-3 py-1 text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600"
                             >
-                              Save
+                              {isEditing ? (
+                                <span className="flex items-center gap-2">
+                                  <Loader className="animate-spin h-4 w-4" />
+                                  Saving...
+                                </span>
+                              ) : (
+                                "Save"
+                              )}
                             </button>
                           </div>
                         </form>
@@ -162,15 +175,19 @@ export default function Comment({ postId }) {
                                 <Edit size={14} />
                               )}
                             </button>
-                            <button
-                              onClick={() => handleDeleteComment(comment._id)}
-                              className="p-1 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-full"
-                              aria-label="Delete comment"
-                            >
-                              {comment?.author?._id === user?._id && (
-                                <Trash size={14} />
-                              )}
-                            </button>
+                            {deletingCommentId === comment._id ? (
+                              <Loader className="animate-spin h-4 w-4 text-red-500" />
+                            ) : (
+                              <button
+                                onClick={() => handleDeleteComment(comment._id)}
+                                className="p-1 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-full"
+                                aria-label="Delete comment"
+                              >
+                                {comment?.author?._id === user?._id && (
+                                  <Trash size={14} />
+                                )}
+                              </button>
+                            )}
                           </div>
                         </div>
                       )}

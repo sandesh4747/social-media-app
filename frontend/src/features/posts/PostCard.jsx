@@ -9,8 +9,9 @@ import ToggleLike from "./ToggleLike";
 import Comment from "./Comment";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
-export default function PostCard({ post }) {
+export default function PostCard({ post, isLoading }) {
   const { user } = useSelector((state) => state.userSlice);
   const [deletePost, { isLoading: isDeleting }] = useDeletePostMutation();
   const [showEdit, setShowEdit] = useState(false);
@@ -31,6 +32,7 @@ export default function PostCard({ post }) {
     }
   };
 
+  if (isLoading) <LoadingSpinner />;
   return (
     <div>
       {!showEdit ? (

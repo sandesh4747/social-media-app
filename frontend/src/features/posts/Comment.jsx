@@ -1,5 +1,5 @@
 import { Edit, MessageCircle, Send, Trash, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useAddCommentMutation,
   useDeleteCommentMutation,

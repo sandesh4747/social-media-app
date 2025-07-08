@@ -32,7 +32,7 @@ export default function Login() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 20 }}
       transition={{ duration: 0.5 }}
-      className="h-[calc(100vh-4rem)] flex items-center justify-center px-4"
+      className="min-h-screen flex items-center justify-center px-4"
     >
       <form
         onSubmit={handleSubmit}

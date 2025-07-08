@@ -63,8 +63,6 @@ export default function Comment({ postId }) {
       },
     };
 
-    const prevComments = post.comments;
-
     // optimistic update UI
     setLocalComments([...localComments, newComment]);
     setCommentText("");

@@ -43,7 +43,7 @@ export default function PostCard({ post, isLoading }) {
                 onClick={() => navigate(`/profile/${post?.author?._id}`)}
                 src={post?.author?.profilePic?.url || profile}
                 alt=""
-                className="rounded-full w-10 h-10 object-cover border-1 border-white shadow-xl"
+                className="rounded-full w-10 h-10 object-cover border-1 border-white shadow-xl cursor-pointer"
               />
               <div>
                 <p className="font-semibold text-sm text-gray-800">

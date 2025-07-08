@@ -74,7 +74,7 @@ export default function ProfilePage() {
                     className={`text-sm px-3 py-1 rounded-lg transition-colors min-w-[80px] flex justify-center ${
                       isFollowing(user._id)
                         ? "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        : "bg-amber-100 text-amber-800 hover:bg-amber-200"
+                        : "bg-orange-500 hover:bg-orange-600 text-white"
                     }`}
                   >
                     {loadingUserId === user._id ? (

@@ -13,7 +13,7 @@ export default function UserPost({ userId }) {
   const { id } = useParams();
 
   const { data } = useGetUserPostsQuery(id);
-  const posts = data?.posts;
+  const posts = data?.posts || [];
 
   const [createPost, { isLoading }] = useCreatePostMutation();
   const { user } = useSelector((state) => state.userSlice);
@@ -59,11 +59,14 @@ export default function UserPost({ userId }) {
   const removeImage = (index) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
+  const sortedPosts = [...posts].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
 
   return (
-    <div>
+    <div className="space-y-6">
       {userId === user?._id && (
-        <div className="space-y-6 py-4">
+        <div className=" py-4">
           <div className="flex items-center gap-3 bg-white p-3 rounded-xl shadow-sm">
             <img
               src={user?.profilePic?.url || profile}
@@ -156,8 +159,8 @@ export default function UserPost({ userId }) {
         </div>
       )}
 
-      {posts?.length > 0 ? (
-        posts.map((post) => <PostCard key={post._id} post={post} />)
+      {sortedPosts?.length > 0 ? (
+        sortedPosts.map((post) => <PostCard key={post._id} post={post} />)
       ) : (
         <div className="w-full flex flex-col items-center justify-center py-16 text-gray-500">
           <svg

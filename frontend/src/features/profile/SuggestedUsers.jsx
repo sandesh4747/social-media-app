@@ -46,7 +46,7 @@ export default function SuggestedUsers({ user, handleFollow, isLoading }) {
                 <button
                   onClick={() => handleFollow(suggestedUser._id)}
                   disabled={isLoading} // Disable ALL buttons during ANY follow operation
-                  className="text-sm bg-amber-100 text-amber-800 px-3 py-1 rounded-lg hover:bg-amber-200 transition-colors min-w-[80px]"
+                  className="text-sm bg-orange-500 hover:bg-orange-600 px-3 py-1 rounded-lg text-white transition-colors min-w-[80px]"
                 >
                   {isLoading ? (
                     <Loader className="animate-spin h-4 w-4 mx-auto" />

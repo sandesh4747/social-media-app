@@ -36,7 +36,7 @@ export default function EditProfile({ setShowEditProfile }) {
     try {
       const response = await updateProfile(formData).unwrap();
       dispatch(setUser(response?.user));
-      navigate("/");
+      setShowEditProfile(false);
 
       toast.success("Profile updated successfully");
     } catch (error) {

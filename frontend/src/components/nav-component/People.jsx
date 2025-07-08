@@ -130,7 +130,11 @@ export default function People() {
                 <div className="flex items-center justify-center gap-2 mt-3">
                   <button
                     onClick={() => handleFollow(person._id)}
-                    className="bg-orange-500 hover:bg-orange-600 text-white py-1 px-3 rounded-md text-sm"
+                    className={`  py-1 px-3 rounded-md text-sm  ${
+                      (isFollowing(person._id) &&
+                        "bg-gray-100 text-gray-700 hover:bg-gray-200") ||
+                      "bg-orange-500 text-white"
+                    }`}
                   >
                     {loadingUserId === person._id ? (
                       <Loader className="h-4 w-4 animate-spin" />

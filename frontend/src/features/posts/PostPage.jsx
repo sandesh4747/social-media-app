@@ -5,10 +5,11 @@ import { Image, Loader, X } from "lucide-react";
 import { useCreatePostMutation, useGetAllPostsQuery } from "./postApi";
 import toast from "react-hot-toast";
 import PostCard from "./PostCard";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 export default function PostPage() {
   const { data, isLoading: isPostLoading } = useGetAllPostsQuery();
-  const posts = data?.posts;
+  const posts = data?.posts || [];
 
   const [createPost, { isLoading }] = useCreatePostMutation();
   const { user } = useSelector((state) => state.userSlice);
@@ -53,7 +54,11 @@ export default function PostPage() {
   const removeImage = (index) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
+  const sortedPosts = [...posts].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
 
+  if (isPostLoading) return <LoadingSpinner />;
   return (
     <div className="space-y-6 ">
       <div className="flex items-center gap-3 bg-white p-3 rounded-xl shadow-sm">
@@ -153,8 +158,8 @@ export default function PostPage() {
         </div>
       )}
 
-      {posts?.length > 0 ? (
-        posts.map((post) => (
+      {sortedPosts?.length > 0 ? (
+        sortedPosts?.map((post) => (
           <PostCard key={post._id} post={post} isLoading={isPostLoading} />
         ))
       ) : (

@@ -8,10 +8,12 @@ export default function ToggleLike({ id, isLikedByUser }) {
   const [isLiked, setIsLiked] = useState(isLikedByUser);
 
   const handleToggleLike = async () => {
+    const prev = isLiked;
+    setIsLiked(!isLiked);
     try {
       await toggleLike(id).unwrap();
-      setIsLiked(!isLiked);
     } catch (error) {
+      setIsLiked(prev);
       console.error("Failed to toggle like:", error);
       toast.error(error.data?.message || "Failed to toggle like");
     }
@@ -20,10 +22,7 @@ export default function ToggleLike({ id, isLikedByUser }) {
   return (
     <div>
       <button
-        onClick={() => {
-          handleToggleLike();
-          setIsLiked(!isLiked);
-        }}
+        onClick={handleToggleLike}
         className="rounded-full p-2 transition-colors duration-200 hover:bg-orange-100 flex items-center justify-center"
         aria-label="Like"
       >

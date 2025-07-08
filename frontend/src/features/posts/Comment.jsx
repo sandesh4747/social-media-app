@@ -28,16 +28,47 @@ export default function Comment({ postId }) {
   const [showComment, setShowComment] = useState(false);
   const [commentText, setCommentText] = useState("");
 
+  // const handleAddComment = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     await addComment({
+  //       id: post._id,
+  //       data: { text: commentText },
+  //     }).unwrap();
+  //     setCommentText("");
+  //     refetch();
+  //   } catch (error) {
+  //     toast.error(error.data?.message || "Failed to add comment");
+  //   }
+  // };
+
   const handleAddComment = async (e) => {
     e.preventDefault();
+    const newComment = {
+      id: Date.now().toString(), // temporary ID
+      text: commentText,
+
+      author: {
+        _id: user._id,
+        username: user.username,
+        profilePic: user.profilePic,
+      },
+    };
+
+    const prevComments = post.comments;
+
+    // optimistic update UI
+    post.comments = [newComment, ...prevComments];
+    setCommentText("");
 
     try {
       await addComment({
         id: post._id,
         data: { text: commentText },
       }).unwrap();
-      setCommentText("");
-      refetch();
+
+      refetch(); //sync real data from backend
     } catch (error) {
       toast.error(error.data?.message || "Failed to add comment");
     }

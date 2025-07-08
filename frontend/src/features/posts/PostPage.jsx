@@ -145,10 +145,10 @@ export default function PostPage() {
                 className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-1 rounded-md text-sm"
               >
                 {isLoading ? (
-                  <>
+                  <div className="flex items-center">
                     <Loader className="animate-spin h-4 w-4" />
                     <span className="ml-2">Posting...</span>
-                  </>
+                  </div>
                 ) : (
                   "Post"
                 )}

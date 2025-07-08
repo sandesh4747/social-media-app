@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import profile from "../../../assets/profile.png";
-import { Image, X } from "lucide-react";
+import { Image, Loader, X } from "lucide-react";
 
 import toast from "react-hot-toast";
 import PostCard from "../../../features/posts/PostCard";
@@ -150,7 +150,14 @@ export default function UserPost({ userId }) {
                     disabled={isLoading}
                     className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-1 rounded-md text-sm"
                   >
-                    {isLoading ? "Posting..." : "Post"}
+                    {isLoading ? (
+                      <div className="flex items-center">
+                        <Loader className="animate-spin h-4 w-4" />
+                        <span className="ml-2">Posting...</span>
+                      </div>
+                    ) : (
+                      "Post"
+                    )}
                   </button>
                 </div>
               </div>

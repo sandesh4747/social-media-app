@@ -62,7 +62,7 @@ export default function People() {
     );
   };
   return (
-    <div className="max-w-4xl mx-auto p-4   pb-8">
+    <div className="max-w-4xl mx-auto p-4   pb-20 sm:pb-8">
       {/* People You May Know Section */}
       <div className="bg-white rounded-lg shadow p-4 mb-6">
         <h2 className="text-xl font-bold mb-4">People You May Know</h2>
@@ -181,7 +181,7 @@ export default function People() {
       </div>
 
       {/* Friends Section */}
-      <div className="bg-white rounded-lg shadow p-4">
+      <div className="bg-white rounded-lg shadow p-4  ">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Your Friends</h2>
           <span className="text-gray-500">

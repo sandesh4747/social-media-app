@@ -27,6 +27,13 @@ export default function Comment({ postId }) {
   const [addComment, { isLoading }] = useAddCommentMutation();
   const [showComment, setShowComment] = useState(false);
   const [commentText, setCommentText] = useState("");
+  const [localComments, setLocalComments] = useState([]);
+
+  useEffect(() => {
+    if (post?.comments) {
+      setLocalComments(post.comments);
+    }
+  }, [post]);
 
   // const handleAddComment = async (e) => {
   //   e.preventDefault();
@@ -59,7 +66,7 @@ export default function Comment({ postId }) {
     const prevComments = post.comments;
 
     // optimistic update UI
-    post.comments = [newComment, ...prevComments];
+    setLocalComments([...localComments, newComment]);
     setCommentText("");
 
     try {

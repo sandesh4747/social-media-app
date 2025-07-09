@@ -68,7 +68,7 @@ export default function Navbar() {
     <>
       {/* Desktop Header */}
       <header
-        className={`hidden md:block fixed top-0 left-0 right-0 z-50 bg-white shadow-sm ${
+        className={`hidden md:block fixed top-0 left-0 right-0 z-50 bg-white shadow-sm   ${
           isScrolled ? "py-2" : "py-3"
         }`}
       >

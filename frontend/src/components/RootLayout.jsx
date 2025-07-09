@@ -9,12 +9,14 @@ export default function RootLayout() {
   return (
     <div className=" bg-[#f0f2f5] ">
       {!shouldHideNavbar && (
-        <div className="pb-20">
+        <div className="">
           <Navbar />
         </div>
       )}
 
-      <main className={`w-full ${!shouldHideNavbar ? "sm:p-5" : ""}`}>
+      <main
+        className={`w-full  md:mt-20 ${!shouldHideNavbar ? "sm:p-5 " : ""}`}
+      >
         <Outlet />
       </main>
     </div>

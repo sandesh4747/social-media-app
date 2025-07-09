@@ -3,19 +3,17 @@ import React, { useState } from "react";
 import { useToogleLikeMutation } from "./postApi";
 import { toast } from "react-hot-toast";
 
-export default function ToggleLike({ id, isLikedByUser, setLocalLikeCount }) {
+export default function ToggleLike({ id, isLikedByUser }) {
   const [toggleLike, { isLoading }] = useToogleLikeMutation(id);
   const [isLiked, setIsLiked] = useState(isLikedByUser);
 
   const handleToggleLike = async () => {
-    const wasLiked = isLiked;
-    setIsLiked(!wasLiked);
-    setLocalLikeCount((prev) => prev + (wasLiked ? -1 : 1));
+    const prev = isLiked;
+    setIsLiked(!isLiked);
     try {
       await toggleLike(id).unwrap();
     } catch (error) {
-      setIsLiked(wasLiked);
-      setLocalLikeCount((prev) => prev + (wasLiked ? 1 : -1));
+      setIsLiked(prev);
       console.error("Failed to toggle like:", error);
       toast.error(error.data?.message || "Failed to toggle like");
     }

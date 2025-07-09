@@ -13,7 +13,6 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 
 export default function PostCard({ post, isLoading }) {
   const { user } = useSelector((state) => state.userSlice);
-  const [localLikeCount, setLocalLikeCount] = useState(0);
   const [deletePost, { isLoading: isDeleting }] = useDeletePostMutation();
   const [showEdit, setShowEdit] = useState(false);
   const [horizontalMenu, setHorizontalMenu] = useState(false);
@@ -178,14 +177,13 @@ export default function PostCard({ post, isLoading }) {
           <div className="flex items-center justify-between mt-4 py-3 border-t border-gray-400 ">
             <div className="flex items-center  gap-2 min-w-[24px] ">
               <ToggleLike
-                setLocalLikeCount={setLocalLikeCount}
                 id={post._id}
                 isLikedByUser={post?.likes?.some(
                   (like) => like._id === user._id
                 )}
               />
               <span className="inline-block w-6 text-center">
-                {localLikeCount}
+                {post?.likes?.length || 0}
               </span>
             </div>
             <div>

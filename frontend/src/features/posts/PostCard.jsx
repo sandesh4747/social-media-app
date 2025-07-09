@@ -111,7 +111,7 @@ export default function PostCard({ post, isLoading }) {
                       src={image.url}
                       alt={`Post image ${index + 1}`}
                       onClick={() => setSelectedImage(image.url)}
-                      className="w-full h-60 object-cover rounded-lg cursor-pointer"
+                      className="w-full h-60 object-cover rounded-sm cursor-pointer"
                     />
                   ))}
                 </div>

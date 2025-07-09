@@ -69,7 +69,7 @@ export const updateProfileSchema = Joi.object({
   bio: Joi.string().max(100).optional().messages({
     "string.max": "Bio must not exceed 100 characters",
   }),
-});
+}).unknown(true);
 
 export const onboardSchema = Joi.object({
   username: Joi.string().min(3).max(20).required().messages({

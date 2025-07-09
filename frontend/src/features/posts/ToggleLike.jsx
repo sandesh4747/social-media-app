@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import { useToogleLikeMutation } from "./postApi";
 import { toast } from "react-hot-toast";
 
-export default function ToggleLike({ id, isLikedByUser }) {
+export default function ToggleLike({ id, isLikedByUser, setLocalLikeCount }) {
   const [toggleLike, { isLoading }] = useToogleLikeMutation(id);
   const [isLiked, setIsLiked] = useState(isLikedByUser);
-  const [localLikeCount, setLocalLikeCount] = useState(0);
 
   const handleToggleLike = async () => {
     const wasLiked = isLiked;

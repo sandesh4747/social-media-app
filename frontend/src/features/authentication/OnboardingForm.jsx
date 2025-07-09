@@ -35,7 +35,7 @@ export default function OnboardingForm() {
   };
 
   return (
-    <div className=" flex items-center justify-center px-4 bg-[#f0f2f5]">
+    <div className="min-h-screen  flex items-center justify-center px-4 bg-[#f0f2f5]">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 space-y-6"

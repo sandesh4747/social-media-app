@@ -4,19 +4,14 @@ import Navbar from "./Navbar";
 
 export default function RootLayout() {
   const location = useLocation();
-  const hideNavbar = ["/login", "/signup", "/onboard"];
-  const shouldHideNavbar = hideNavbar.includes(window.location.pathname);
-  return (
-    <div className=" bg-[#f0f2f5] ">
-      {!shouldHideNavbar && (
-        <div className="">
-          <Navbar />
-        </div>
-      )}
+  const hideNavbarPaths = ["/login", "/signup", "/onboard"];
+  const shouldHideNavbar = hideNavbarPaths.includes(location.pathname);
 
-      <main
-        className={`w-full  md:mt-20 ${!shouldHideNavbar ? "sm:p-5 " : ""}`}
-      >
+  return (
+    <div className="bg-[#f0f2f5] min-h-screen">
+      {!shouldHideNavbar && <Navbar />}
+
+      <main className={`w-full ${!shouldHideNavbar ? "md:mt-20 sm:p-5" : ""}`}>
         <Outlet />
       </main>
     </div>

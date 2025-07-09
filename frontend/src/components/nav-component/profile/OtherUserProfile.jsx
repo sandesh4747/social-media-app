@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import bgImg from "../../../assets/bg.png";
 import { FaCamera, FaPencilAlt } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import profilePic from "../../../assets/profile.png";
 import PostPage from "../../../features/posts/PostPage";
 
@@ -10,13 +10,17 @@ import EditProfile from "./EditProfile";
 import About from "./About";
 import Friends from "./Friends";
 import EditBio from "./EditBio";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetSingleUserQuery } from "../../../features/user/userApi";
 import UserPost from "./UserPost";
 import LoadingSpinner from "../../LoadingSpinner";
+import { LogOut } from "lucide-react";
+import { useUserLogoutMutation } from "../../../features/authentication/authApi";
+import { setUser } from "../../../features/user/userSlice";
 
 export default function OtherUserProfile() {
   const { id } = useParams();
+  const [userLogout] = useUserLogoutMutation();
   const { data, isLoading } = useGetSingleUserQuery(id);
   const { user: me } = useSelector((state) => state.userSlice);
 
@@ -25,6 +29,8 @@ export default function OtherUserProfile() {
   const [ShowEditBio, setShowEditBio] = useState(false);
   const list = ["Posts", "About", "Friends"];
   const user = data?.user;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const tab = [
     {
       name: "Posts",
@@ -39,6 +45,19 @@ export default function OtherUserProfile() {
       component: <Friends user={user} />,
     },
   ];
+
+  const handleLogout = async () => {
+    try {
+      await userLogout().unwrap();
+      dispatch(setUser(null));
+      navigate("/login");
+      toast.success("Logged out successfully");
+    } catch (error) {
+      toast.error(
+        error?.data?.message || "Failed to logout. Please try again."
+      );
+    }
+  };
 
   if (isLoading) return <LoadingSpinner />;
   return (
@@ -159,18 +178,33 @@ export default function OtherUserProfile() {
             <p className="mb-4">{user?.bio || "No bio yet"}</p>
 
             {me?._id === user?._id && (
-              <button
-                onClick={() => setShowEditBio(true)}
-                className="w-full bg-gray-100 hover:bg-gray-200 rounded-md py-1.5 font-medium"
-              >
-                Edit Bio
-              </button>
+              <div>
+                <button
+                  onClick={() => setShowEditBio(true)}
+                  className="w-full bg-gray-100 hover:bg-gray-200 rounded-md py-1.5 font-medium"
+                >
+                  Edit Bio
+                </button>
+              </div>
             )}
 
             {ShowEditBio && (
               <EditBio setShowEditBio={setShowEditBio} user={user} />
             )}
           </div>
+
+          {me?._id === user?._id && (
+            <div
+              className="bg-white rounded-lg shadow p-4"
+              onClick={handleLogout}
+            >
+              {" "}
+              <button className=" mt-15 hover:text-orange-700 rounded-md py-1.5 font-medium flex gap-3">
+                <LogOut />
+                <p>Logout</p>
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-4 w-full md:w-2/3">

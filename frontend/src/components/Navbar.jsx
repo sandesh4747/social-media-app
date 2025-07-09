@@ -125,6 +125,7 @@ export default function Navbar() {
             <div className="flex items-center space-x-2 ml-5 relative group">
               <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-white hover:shadow-lg transition duration-300 cursor-pointer">
                 <img
+                  onClick={() => navigate(`/profile/${user?._id}`)}
                   src={user?.profilePic?.url || profile}
                   alt="Profile"
                   className="w-full h-full object-cover"
@@ -210,15 +211,6 @@ export default function Navbar() {
             <FaBell className="text-xl" />
             <span className="text-xs mt-1">Notifications</span>
           </button>
-
-          {/* <div>
-            <Search onClick={() => setShowSearchBar((prev) => !prev)} />{" "}
-            {showSearchBar && (
-              <div className="absolute -top-12 left-0 right-0">
-                <SearchBar />
-              </div>
-            )}
-          </div> */}
 
           {/* Profile (Mobile) */}
           <Menu placement="bottom-end">

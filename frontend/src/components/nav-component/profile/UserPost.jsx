@@ -166,28 +166,32 @@ export default function UserPost({ userId }) {
         </div>
       )}
 
-      {sortedPosts?.length > 0 ? (
-        sortedPosts.map((post) => <PostCard key={post._id} post={post} />)
-      ) : (
-        <div className="w-full flex flex-col items-center justify-center py-16 text-gray-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-16 w-16 mb-4 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={1.5}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3 10h2l1 2h13l1-2h2M12 20h.01M4 6h16"
-            />
-          </svg>
-          <p className="text-lg font-medium">No posts yet</p>
-          <p className="text-sm text-gray-400">Start sharing something soon!</p>
-        </div>
-      )}
+      <div className="mb-20 space-y-6">
+        {sortedPosts?.length > 0 ? (
+          sortedPosts.map((post) => <PostCard key={post._id} post={post} />)
+        ) : (
+          <div className="w-full flex flex-col items-center justify-center py-16 text-gray-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-16 w-16 mb-4 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 10h2l1 2h13l1-2h2M12 20h.01M4 6h16"
+              />
+            </svg>
+            <p className="text-lg font-medium">No posts yet</p>
+            <p className="text-sm text-gray-400">
+              Start sharing something soon!
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

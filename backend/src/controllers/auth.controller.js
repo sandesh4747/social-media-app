@@ -1,14 +1,19 @@
 import { generateTokenAndSetCookie } from "../lib/generateTokenAndSetCookie.js";
+import {
+  loginSchema,
+  onboardSchema,
+  registerSchema,
+} from "../middleware/validator.js";
 import User from "../models/User.js";
 
 // SINGUP
 export const signup = async (req, res) => {
-  const { username, email, password } = req.body;
-
   try {
-    if (!username || !email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
+    const { username, email, password } = await registerSchema.validateAsync(
+      req.body,
+      { abortEarly: false }
+    ); //return all validation errors
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
@@ -33,6 +38,9 @@ export const signup = async (req, res) => {
       .status(201)
       .json({ success: true, user: { ...user._doc, password: undefined } });
   } catch (error) {
+    if (error.isJoi) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
     console.log("Error in signup controller", error);
     res.status(500).json({ message: error.message });
   }
@@ -41,11 +49,9 @@ export const signup = async (req, res) => {
 // LOGIN
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
+    const { email, password } = await loginSchema.validateAsync(req.body, {
+      abortEarly: false,
+    }); //return all validation errors
 
     const user = await User.findOne({ email }).select("+password");
 
@@ -65,6 +71,9 @@ export const login = async (req, res) => {
       .status(200)
       .json({ success: true, user: { ...user._doc, password: undefined } });
   } catch (error) {
+    if (error.isJoi) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
     console.log("Error in login controller", error);
     res.status(500).json({ message: error.message });
   }
@@ -80,7 +89,9 @@ export const logout = async (req, res) => {
 export const onboard = async (req, res) => {
   try {
     const userId = req.user._id;
-    const { username, bio } = req.body;
+    const { username, bio } = await onboardSchema.validateAsync(req.body, {
+      abortEarly: false,
+    });
 
     if (!username) {
       return res.status(400).json({
@@ -119,6 +130,9 @@ export const onboard = async (req, res) => {
       user: { ...updatedUser._doc, password: undefined },
     });
   } catch (error) {
+    if (error.isJoi) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
     console.log("Error in onboard controller", error);
     res.status(500).json({ message: error.message });
   }

@@ -6,6 +6,7 @@ import { useCreatePostMutation, useGetAllPostsQuery } from "./postApi";
 import toast from "react-hot-toast";
 import PostCard from "./PostCard";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 export default function PostPage() {
   const { data, isLoading: isPostLoading } = useGetAllPostsQuery();
@@ -16,6 +17,7 @@ export default function PostPage() {
   const [showPostModal, setShowPostModal] = useState(false);
   const [postText, setPostText] = useState("");
   const [images, setImages] = useState([]); // Use array, not null
+  const navigate = useNavigate();
 
   const handleCreatePost = async (e) => {
     e.preventDefault();
@@ -63,9 +65,10 @@ export default function PostPage() {
     <div className="space-y-6 ">
       <div className="flex items-center gap-3 bg-white p-3 rounded-xl shadow-sm">
         <img
+          onClick={() => navigate(`/profile/${user?._id}`)}
           src={user?.profilePic?.url || profile}
           alt="profile"
-          className="w-10 h-10 rounded-full shadow border border-white object-cover"
+          className="w-10 h-10 rounded-full shadow border border-white object-cover cursor-pointer"
         />
         <input
           type="text"

@@ -1,4 +1,5 @@
 import { cloudinary } from "../lib/cloudinary.js";
+import { commentSchema, postSchema } from "../middleware/validator.js";
 import { Post } from "../models/Post.js";
 
 export const getAllPosts = async (req, res) => {
@@ -39,7 +40,9 @@ export const getUserPosts = async (req, res) => {
 export const createPost = async (req, res) => {
   try {
     const userId = req.user._id;
-    const { content } = req.body;
+    const { content } = await postSchema.validateAsync(req.body, {
+      abortEarly: false,
+    });
 
     if (!content)
       return res.status(400).json({ message: "Post content is required" });
@@ -61,6 +64,9 @@ export const createPost = async (req, res) => {
       .status(201)
       .json({ success: true, message: "Post created successfully", post });
   } catch (error) {
+    if (error.isJoi) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
     console.log("Error in createPost controller", error);
     res.status(500).json({ message: error.message });
   }
@@ -173,7 +179,9 @@ export const toogleLike = async (req, res) => {
 
 export const addComment = async (req, res) => {
   try {
-    const { text } = req.body;
+    const { text } = await commentSchema.validateAsync(req.body, {
+      abortEarly: false,
+    });
 
     if (!text) {
       return res.status(400).json({ message: "Comment text is required" });
@@ -198,6 +206,9 @@ export const addComment = async (req, res) => {
       message: "Comment added successfully",
     });
   } catch (error) {
+    if (error.isJoi) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
     console.log("Error in addComment controller", error);
     res.status(500).json({ message: error.message });
   }

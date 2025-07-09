@@ -7,7 +7,6 @@ import postRoutes from "./routes/post.route.js";
 import userRoutes from "./routes/user.route.js";
 import cors from "cors";
 import path from "path";
-// import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
 app.use(express.json());
@@ -25,8 +24,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/user", userRoutes);
 
-// app.use(errorHandler);
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
   app.get("*", (req, res) =>
@@ -38,3 +35,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   connectDB();
 });
+export default app;

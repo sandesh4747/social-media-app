@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import profile from "../../../assets/profile.png";
 import { Search } from "lucide-react";
 
-export default function SearchBar({ setShowSearchBar }) {
+export default function SearchBar({ setShowSearchBar, autoFocus }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedTerm, setDebouncedTerm] = useState("");
 
@@ -24,7 +24,7 @@ export default function SearchBar({ setShowSearchBar }) {
       {/* Search Input */}
       <div className="relative">
         <input
-          autoFocus={true}
+          autoFocus={autoFocus}
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

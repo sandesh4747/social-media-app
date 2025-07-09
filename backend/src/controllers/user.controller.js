@@ -1,3 +1,4 @@
+import { updateProfileSchema } from "../middleware/validator.js";
 import { Post } from "../models/Post.js";
 import User from "../models/User.js";
 
@@ -96,7 +97,12 @@ export const toggleFollow = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    const { username, bio } = req.body;
+    const { username, bio } = await updateProfileSchema.validateAsync(
+      req.body,
+      {
+        abortEarly: false,
+      }
+    );
 
     const user = await User.findById(req.user._id);
 
@@ -119,6 +125,9 @@ export const updateProfile = async (req, res) => {
       },
     });
   } catch (error) {
+    if (error.isJoi) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
     console.error("Error in updateProfile controller", error);
     res.status(500).json({ message: error.message });
   }

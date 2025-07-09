@@ -18,6 +18,7 @@ import People from "./components/nav-component/People";
 import Notification from "./components/nav-component/Notification";
 
 import OtherUserProfile from "./components/nav-component/profile/OtherUserProfile";
+import NotFoundPage from "./pages/NotFound";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -83,6 +84,10 @@ export default function App() {
           ),
         },
       ],
+    },
+    {
+      path: "*",
+      element: <NotFoundPage />,
     },
   ]);
   return <RouterProvider router={router} />;

@@ -199,7 +199,10 @@ export default function OtherUserProfile() {
               onClick={handleLogout}
             >
               {" "}
-              <button className=" mt-15 hover:text-orange-700 rounded-md py-1.5 font-medium flex gap-3">
+              <button
+                className=" mt-15 
+              w-full bg-white text-orange-500 hover:text-orange-700 rounded-md py-1.5 font-medium flex gap-3"
+              >
                 <LogOut />
                 <p>Logout</p>
               </button>

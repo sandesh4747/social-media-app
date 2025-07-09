@@ -83,7 +83,7 @@ export default function Navbar() {
           {/* Search Bar */}
 
           <div className="w-1/2 pr-5">
-            <SearchBar />
+            <SearchBar autoFocus={false} />
           </div>
 
           {/* Desktop Navigation */}

@@ -4,14 +4,14 @@ import validate from "express-joi-validation";
 export const validates = validate.createValidator({});
 
 export const loginSchema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().min(6).max(20).required(),
+  email: Joi.string().trim().email().required(),
+  password: Joi.string().trim().min(6).max(20).required(),
 });
 
 export const registerSchema = Joi.object({
   username: Joi.string().min(3).max(20).required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().min(6).max(20).required(),
+  email: Joi.string().trim().email().required(),
+  password: Joi.string().trim().min(6).max(20).required(),
 });
 
 export const postSchema = Joi.object({

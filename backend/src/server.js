@@ -7,6 +7,7 @@ import postRoutes from "./routes/post.route.js";
 import userRoutes from "./routes/user.route.js";
 import cors from "cors";
 import path from "path";
+// import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
 app.use(express.json());
@@ -23,6 +24,8 @@ const __dirname = path.resolve();
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/user", userRoutes);
+
+// app.use(errorHandler);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));

@@ -19,7 +19,7 @@ export default function Login() {
     e.preventDefault();
     try {
       const response = await userLogin({ email, password }).unwrap();
-      // console.log(response);
+
       dispatch(setUser(response?.user));
       toast.success("Login successful");
       // navigate("/");

@@ -9,6 +9,7 @@ import { protectRoute } from "../middleware/protectRoute.js";
 import {
   loginSchema,
   registerSchema,
+  updateProfileSchema,
   validates,
 } from "../middleware/validator.js";
 import { upload } from "../lib/upload.js";
@@ -17,16 +18,22 @@ const router = express.Router();
 
 router.post(
   "/signup",
-  //  validates.body(registerSchema),
+  // validates.body(registerSchema),
   signup
 );
 router.post(
   "/login",
-  // validates.body(loginSchema),
+  //  validates.body(loginSchema),
   login
 );
 router.post("/logout", logout);
 
-router.post("/onboard", protectRoute, upload.single("profilePic"), onboard);
+router.post(
+  "/onboard",
+  protectRoute,
+  upload.single("profilePic"),
+  // validates.body(updateProfileSchema),
+  onboard
+);
 
 export default router;

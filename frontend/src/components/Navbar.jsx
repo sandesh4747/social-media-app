@@ -17,6 +17,7 @@ import {
   Typography,
   Avatar,
 } from "@material-tailwind/react";
+import { Search } from "lucide-react";
 
 export default function Navbar() {
   const [userLogout] = useUserLogoutMutation();
@@ -25,6 +26,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   const [showNotification, setShowNotification] = useState(false);
 
@@ -72,14 +74,17 @@ export default function Navbar() {
           isScrolled ? "py-2" : "py-3"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
+        <div className="max-w-6xl mx-auto px-4 flex  justify-between items-center ">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center  pr-5 w-1/3">
             <img src={mainLogo} alt="Logo" className="h-8 w-auto" />
           </Link>
 
           {/* Search Bar */}
-          <SearchBar />
+
+          <div className="w-1/2 pr-5">
+            <SearchBar />
+          </div>
 
           {/* Desktop Navigation */}
           <div className="flex items-center space-x-1 relative">
@@ -148,6 +153,24 @@ export default function Navbar() {
         </div>
       </header>
 
+      {showSearchBar && (
+        <div className="md:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-40 pt-4 px-4">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-6"></div>
+            <h2 className="text-xl font-semibold text-gray-800">SearchBar</h2>
+            <button
+              onClick={() => {
+                setShowSearchBar(false);
+              }}
+              className="text-red-600 text-lg"
+            >
+              Cancel
+            </button>
+          </div>
+          <SearchBar autoFocus={true} setShowSearchBar={setShowSearchBar} />
+        </div>
+      )}
+
       {/* Mobile Bottom Navigation */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
         <div className="flex justify-around items-center py-2">
@@ -166,14 +189,36 @@ export default function Navbar() {
             </Link>
           ))}
 
+          {/* Mobile Search Bar */}
+          <button
+            onClick={() => setShowSearchBar(true)}
+            className="flex flex-col items-center p-2 text-gray-600"
+          >
+            <FaSearch className="text-xl" />
+            <span className="text-xs mt-1">Search</span>
+          </button>
+
           {/* Notification Icon (Mobile Only) */}
           <button
             onClick={() => setShowNotification((prev) => !prev)}
-            className="flex flex-col items-center p-2 text-gray-600"
+            className={`flex flex-col items-center p-2 text-gray-600 ${
+              showNotification
+                ? "text-orange-600 "
+                : "text-gray-600 hover:bg-gray-100"
+            }`}
           >
             <FaBell className="text-xl" />
             <span className="text-xs mt-1">Notifications</span>
           </button>
+
+          {/* <div>
+            <Search onClick={() => setShowSearchBar((prev) => !prev)} />{" "}
+            {showSearchBar && (
+              <div className="absolute -top-12 left-0 right-0">
+                <SearchBar />
+              </div>
+            )}
+          </div> */}
 
           {/* Profile (Mobile) */}
           <Menu placement="bottom-end">

@@ -195,13 +195,13 @@ export default function OtherUserProfile() {
 
           {me?._id === user?._id && (
             <div
-              className="bg-white rounded-lg shadow p-4"
+              className="bg-white rounded-lg shadow px-4 py-2 mt-15"
               onClick={handleLogout}
             >
               {" "}
               <button
-                className=" mt-15 
-              w-full bg-white text-orange-500 hover:text-orange-700 rounded-md py-1.5 font-medium flex gap-3"
+                className="  
+              bg-white text-orange-500 hover:text-orange-700 rounded-md  font-medium flex gap-3"
               >
                 <LogOut />
                 <p>Logout</p>

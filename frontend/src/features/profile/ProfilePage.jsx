@@ -4,17 +4,21 @@ import logo from "../../assets/logo.png";
 import { Loader, Search } from "lucide-react";
 import { useSelector } from "react-redux";
 import profile from "../../assets/profile.png";
-import { useToggleFollowMutation } from "../user/userApi";
+import { useGetMeQuery, useToggleFollowMutation } from "../user/userApi";
 import { toast } from "react-hot-toast";
 import SuggestedUsers from "./SuggestedUsers";
 import ShowFollowerCard from "./ShowFollowerCard";
 
 export default function ProfilePage() {
+  const { data } = useGetMeQuery();
+  console.log("data", data);
   const [loadingUserId, setLoadingUserId] = useState(null);
   const [showAllFollowers, setShowAllFollowers] = useState(false);
   const [showFollowersCard, setShowFollowersCard] = useState(false);
 
-  const { user } = useSelector((state) => state.userSlice);
+  // const { user } = useSelector((state) => state.userSlice);
+
+  const user = data?.user;
 
   const [toogleFollow, { isLoading }] = useToggleFollowMutation();
 

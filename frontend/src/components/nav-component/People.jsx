@@ -73,7 +73,7 @@ export default function People() {
           </div>
         ) : suggestedUsers?.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {suggestedUsers?.slice(0, 6).map((person) => (
+            {suggestedUsers?.map((person) => (
               <div
                 key={person._id}
                 className="border border-gray-200 rounded-lg p-4"
